@@ -1,20 +1,20 @@
 import pygame
 import random
 from pygame.sprite import Sprite
-from game.utils.constants import ENEMY_1, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 
-class Enemy(Sprite):
-    ENEMY_WIDTH = 40
-    ENEMY_HEIGHT = 60
+class Lurker(Sprite):
+    ENEMY_WIDTH = 100
+    ENEMY_HEIGHT = 120
     Y_POS = 0
     X_POS_RANGE = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-    SPEED_ON_Y = 1
-    SPEED_ON_X = 5
+    SPEED_ON_Y = 5
+    SPEED_ON_X = 3
     MOVES = { 0: 'left', 1: 'right'}
 
 
     def __init__(self):
-        self.image = ENEMY_1
+        self.image = ENEMY_2
         self.image = pygame.transform.scale(self.image, (self.ENEMY_WIDTH, self.ENEMY_HEIGHT))
         self.rect = self.image.get_rect(midtop = (random.choice(self.X_POS_RANGE), self.Y_POS))
         self.direction = self.MOVES[random.randint(0, 1)]

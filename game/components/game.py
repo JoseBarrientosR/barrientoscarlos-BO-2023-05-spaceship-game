@@ -19,6 +19,9 @@ class Game:
         self.player = Spaceship()
         self.enemies = EnemyManager()
 
+        pygame.mixer_music.load("game/assets/other/fondo.mp3")
+        pygame.mixer_music.play(4)
+
     def run(self):
         # Game loop: events - update - draw
         self.playing = True
