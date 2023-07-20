@@ -7,30 +7,29 @@ class EnemyManager:
     def __init__(self):
         self.enemies = []
 
-    def update(self):
+    def update(self, game):
         self.add_enemy()
 
         for enemy in self.enemies:
-            enemy.update(self.enemies)
+            enemy.update(self.enemies, game)
         
-        self.add_lurker()
+        
 
         for lurker in self.enemies:
-            lurker.update(self.enemies)
+            lurker.update(self.enemies, game)
         
         
     def draw(self, screen):
-        for enemy in self. enemies:
+        for enemy in self.enemies:
             enemy.draw(screen)
         for lurker in self. enemies:
             lurker.draw(screen)
 
     def add_enemy(self):
-        if len(self.enemies) < 7:
+        if len(self.enemies) < 2:
             enemy = Enemy()
-            self.enemies.append(enemy)
-
-    def add_lurker(self):
-        if len(self.enemies) < 7:
             lurker = Lurker()
             self.enemies.append(lurker)
+            self.enemies.append(enemy)
+
+    
