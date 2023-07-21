@@ -32,4 +32,7 @@ class EnemyManager:
             self.enemies.append(lurker)
             self.enemies.append(enemy)
 
+
+    def reset(self):
+        self.enemies = []
     

@@ -15,13 +15,13 @@ class Bullet(Sprite):
         self.owner = spaceship.type
 
     def update(self, bullets):
-        if self.BULLET_TYPES == BULLET:
+        if self.owner == "player":
             self.rect.y -= 20
         else:
             self.rect.y += 20
 
 
-        if self.rect.top > SCREEN_HEIGHT:
+        if self.rect.top < 0 or self.rect.centery > SCREEN_HEIGHT:
             bullets.remove(self)
 
     
