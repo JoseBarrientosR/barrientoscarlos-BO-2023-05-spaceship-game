@@ -1,5 +1,5 @@
 import pygame 
-
+from game.utils.constants import SHIELD_TYPE
 
 class BulletManager:
     def __init__(self):
@@ -12,30 +12,31 @@ class BulletManager:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player) and bullet.owner == 'enemy':
-                game.increase_death_counter()
-                game.playing = False
-                pygame.time.delay(500)
-                break
+                if game.player.power_up_type != SHIELD_TYPE:
+                 game.death_counter.update()
+                 game.playing = False
+                 pygame.time.delay(500)
+                 break
 
         for bullet in self.lurker_bullets:
             bullet.update(self.lurker_bullets)
 
             if bullet.rect.colliderect(game.player) and bullet.owner == 'enemy':
-                game.increase_death_counter()
-                game.playing = False
-                pygame.time.delay(500)
-                break
+                if game.player.power_up_type != SHIELD_TYPE:
+                 game.death_counter.update()
+                 game.playing = False
+                 pygame.time.delay(500)
+                 break
 
         for bullet in self.player_bullets:
             bullet.update(self.player_bullets)
 
             for enemy in game.enemy_manager.enemies:
-                if bullet.rect.colliderect(enemy.rect):
+                if bullet.rect.colliderect(enemy.rect) and bullet in self.player_bullets:
                     game.enemy_manager.enemies.remove(enemy)
                     self.player_bullets.remove(bullet)
-                    game.increase_score()
+                    game.score.update()
         
-
 
     def draw(self, screen):
         for bullet in self.enemy_bullets:
@@ -45,6 +46,7 @@ class BulletManager:
         for bullet in self.player_bullets:
             bullet.draw(screen)
 
+
     def add_bullet(self, bullet):
         if bullet.owner == 'enemy' and len(self.enemy_bullets) < 10:
             self.enemy_bullets.append(bullet)
@@ -52,8 +54,10 @@ class BulletManager:
         elif bullet.owner == "enemy" and len(self.lurker_bullets) < 10:
             self.enemy_bullets.append(bullet)
 
-        elif bullet.owner == 'player':
+        elif bullet.owner == 'player' and len(self.player_bullets) < 2:
             self.player_bullets.append(bullet)
+
+
     def reset(self):
         self.player_bullets = []
         self.enemy_bullets = []
