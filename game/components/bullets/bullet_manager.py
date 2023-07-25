@@ -54,7 +54,7 @@ class BulletManager:
         elif bullet.owner == "enemy" and len(self.lurker_bullets) < 10:
             self.enemy_bullets.append(bullet)
 
-        elif bullet.owner == 'player' and len(self.player_bullets) < 2:
+        elif bullet.owner == 'player':
             self.player_bullets.append(bullet)
 
 
